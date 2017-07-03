@@ -1,0 +1,26 @@
+#!/bin/sh
+
+set -e
+
+if [ ! -e /usr/local/lib/libtsm.a ];
+then
+  echo "libtsm missing, compiling from source..."
+  DIR=$(mktemp -d -t tsmXXXXXX)
+  cd $DIR
+  git clone git://people.freedesktop.org/~dvdhrm/libtsm .
+  git checkout bb4e454
+  test -f ./configure || NOCONFIGURE=1 ./autogen.sh
+  ./configure --prefix=/usr/local
+  make
+  sudo make install
+  sudo ldconfig
+  cd -
+fi
+
+cd src && make && cd -
+
+rm -f log/*
+bundle install
+bundle exec rake db:setup
+mkdir -p tmp
+touch tmp/restart.txt

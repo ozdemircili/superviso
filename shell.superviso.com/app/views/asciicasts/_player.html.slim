@@ -1,0 +1,18 @@
+.player class="#{options.size}-font"
+
+javascript:
+  $(function() {
+    var playerClass = #{options.player_class};
+    var maxWidth = #{options.max_width || 'null'};
+
+    window.player = new playerClass({
+      el:            $('.player'),
+      speed:         #{options.speed},
+      benchmark:     #{options.benchmark},
+      model:         new Asciinema.Asciicast(#{asciicast.html_safe}),
+      maxWidth:      maxWidth || $('.cinema .player').parent().width(),
+      rendererClass: #{options.renderer_class},
+      autoPlay:      #{options.autoplay},
+      hud:           #{!options.hide_hud}
+    });
+  });

@@ -1,0 +1,52 @@
+- content_for(:title, 'Installation')
+
+markdown:
+
+  # Installation
+
+  The latest stable version of asciinema recorder can always be found at
+  [pypi.python.org/pypi/asciinema](https://pypi.python.org/pypi/asciinema).
+  You can install or update it via
+  [pip](http://www.pip-installer.org/en/latest/index.html):
+
+      sudo pip install asciinema
+
+  If you don't have `pip`, first install it with `easy_install`:
+
+      sudo easy_install pip
+      sudo pip install asciinema
+
+  ## Ubuntu
+
+  To install native Ubuntu package of asciinema recorder add [zanchey
+  ppa](https://launchpad.net/~zanchey/+archive/asciinema) to your software
+  sources list:
+
+      sudo apt-add-repository ppa:zanchey/asciinema
+      sudo apt-get update
+      sudo apt-get install asciinema
+
+  ## Fedora
+
+  asciinema rpm package is included in the main Fedora 19 and 20 repository:
+
+      sudo yum install asciinema
+
+  ## Arch Linux
+
+  Arch Linux users can install the
+  [AUR package](https://aur.archlinux.org/packages/asciinema/):
+
+      sudo yaourt -S asciinema
+
+  ## Gentoo Linux
+
+  Gentoo Linux users can install the
+  [portage package](http://packages.gentoo.org/package/app-misc/asciinema):
+
+      sudo emerge asciinema
+
+  ## No native package for your operating system?
+
+  If you use some other operating system and you know how to build a native
+  package for it then don't hesitate, build one and let us know.
