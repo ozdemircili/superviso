@@ -1,0 +1,16 @@
+<div class="gridster">
+  <ul>
+    <% @dashboard.widgets.each do |widget| %>
+      <li data-row="<%= widget.row %>" data-col="<%= widget.col %>" data-sizex="<%= widget.size_x%>" data-sizey="<%= widget.size_y %>">
+      <%= content_tag :div, data: widget.dashing_data_hash, style: "background-color: #{widget.color}" do %><%end%>
+      </li>
+    <% end %>
+  </ul>
+</div>
+<%= content_for :javascript do %>
+  <script>
+    currentDashboardUrl = "<%= dashboard_path(@dashboard) %>";
+    initDashing(<%= @dashboard.id %>, "<%= @dashboard.pusher_channel %>");
+  </script>
+<% end %> 
+

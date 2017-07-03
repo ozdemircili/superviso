@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="ROBOTS" content="NOODP" />
+  <title><%= page_title %></title>
+  <%= stylesheet_link_tag :application, :media => 'all' %>
+  <%= csrf_meta_tags %>
+</head>
+<body class="<%= body_class %>">
+<% if user_signed_in? %>
+  <nav class="navbar navbar-default navbar-inverse navbar-static-top" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <a class="navbar-brand" href="#">Superviso</a>
+
+
+    <button type="button" class="navbar-toggle" data-toggle="collapse" href=".navbar-collapse-primary">
+      <span class="sr-only">Toggle Side Navigation</span>
+      <i class="icon-th-list"></i>
+    </button>
+
+    <button type="button" class="navbar-toggle" data-toggle="collapse" href=".navbar-collapse-top">
+      <span class="sr-only">Toggle Top Navigation</span>
+      <i class="icon-align-justify"></i>
+    </button>
+
+  </div>
+
+
+
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse navbar-collapse-top">
+    <div class="navbar-right">
+
+      <ul class="list-inline navbar-nav sparkline-box">
+
+        <li class="sparkline-row">
+        <h4 class="blue"><span>Online Users</span><%=  (3*User.count) + Random.rand(5) %></h4>
+        <div class="sparkline big" data-color="blue"><canvas width="82" height="30" style="display: inline-block; width: 82px; height: 30px; vertical-align: top;"></canvas></div>
+        </li>
+
+        <li class="sparkline-row">
+        <h4 class="green"><span>Dashboard</span> <%= Dashboard.all.count %></h4>
+        <div class="sparkline big" data-color="green"><canvas width="82" height="30" style="display: inline-block; width: 82px; height: 30px; vertical-align: top;"></canvas></div>
+        </li>
+
+        <li class="sparkline-row">
+        <h4 class="red"><span>Updates per seconds</span><%=  10 + Random.rand(5) %></h4>
+        <div class="sparkline big"><canvas width="82" height="30" style="display: inline-block; width: 82px; height: 30px; vertical-align: top;"></canvas></div>
+        </li>
+
+      </ul>
+      <ul class="nav navbar-nav navbar-left">
+        <% if current_user and current_user.announcements.any? %>
+          <li>
+            <a id="announcements" style="color: #5cb85c" data-toggle="modal" href="#announcmentModal"><i class="fa fa-bell icon-pulse"></i></a>
+          </li>
+
+        <% end %>
+          <% if not current_user.confirmed? %>
+        <li>
+          <a id="unconfirmed-warning" data-toggle="popover" data-content="Please confirm your email address." data-original-title="Confirm Email"><i class="fa fa-exclamation-triangle" style="color: red"></i></a>
+        </li>
+          <% end %>
+        <li class="dropdown">
+        <a href="#" class="dropdown-toggle dropdown-avatar" data-toggle="dropdown">
+          <span>
+            <img class="menu-avatar" src="http://www.gravatar.com/avatar/<%= current_user.email %>"> <span><%= current_user.email %> <i class="icon-caret-down"></i></span>
+          </span>
+        </a>
+        <ul class="dropdown-menu">
+
+          <!-- the first element is the one with the big avatar, add a with-image class to it -->
+
+          <li class="with-image">
+          <div class="avatar">
+            <img src="http://www.gravatar.com/avatar/<%= current_user.email %>">
+          </div>
+          <span>John Smith</span>
+          </li>
+
+          <li class="divider"></li>
+
+          <li>
+            <%= link_to(profile_user_path)  do %>
+              <i class="icon-user"></i> <span>Profile</span>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to(edit_user_registration_path)  do %>
+              <i class="icon-user"></i> <span>Change password</span>
+            <% end %>
+          </li>
+          <li>
+          <%= link_to destroy_user_session_path, "method" =>:delete do %>
+              <i class="icon-off"></i> <span>Logout</span>
+            <% end %>
+          </li>
+        </ul>
+        </li>
+      </ul>
+    </div>
+
+
+
+
+  </div><!-- /.navbar-collapse -->
+
+
+</nav>
+        <%= render 'sidebar' %>
+        <div class="main-content">
+          <%= render 'flashes' -%>
+          <%= yield %>
+        </div>
+  <% else %>
+      <div class="container">
+        <%= render 'flashes' -%>
+        <%= yield %>
+      </div>
+  <% end %>
+  <% if user_signed_in? %>
+  <div class="modal fade" id="announcmentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">News From Superviso</h4>
+          </div>
+          <div class="modal-body">
+            <ul class="list-group">
+              <% current_user.announcements.each do |a| %>
+                <li class="list-group-item">
+                  <span class="badge"><%= I18n.l a.starts_at%></span>
+                  <h3><%= a.title %></h3>
+                  <p>
+                    <%= a.message %>
+                    </p>
+
+                    <%= link_to "Mark as read", hide_announcement_path(a), class: "btn btn-success pull-right"%>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+  <% end %>
+  <%= render 'javascript' %>
+</body>
+</html>

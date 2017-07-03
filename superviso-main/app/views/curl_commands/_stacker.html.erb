@@ -1,0 +1,1 @@
+curl  -X POST -H "Content-Type: application/json" -d '{ "auth_token": "<%= current_user.auth_token %>",  "widget": "<%= @widget.secret_token%>", "title": "Something", "series": [{"name": "AUY", "data": [94], "pointWidth": 500}, {"name": "SFL", "data": [84], "pointWidth": 500}, {"name": "GLD", "data": [84], "pointWidth": 500}] }' http://collector.superviso.com<br>

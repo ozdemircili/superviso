@@ -1,0 +1,39 @@
+<div class="col-md-6 col-md-offset-3">
+  <div class="padded">
+    <div class="login box" style="margin-top: 80px;">
+      <div class="box-header">
+        <span class="title">Sign Up</span>
+      </div>
+      <div class="box-content padded">
+        <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: {class: "separate-sections"}) do |f| %>
+          <div class="input-group addon-left">
+            <span class="input-group-addon" href="#">
+              <i class="icon-envelope"></i>
+            </span>
+            <%= f.text_field :email, placeholder: "email" %>
+          </div>
+          <div class="input-group addon-left">
+            <span class="input-group-addon" href="#">
+              <i class="icon-key"></i>
+            </span>
+            <%= f.password_field :password, placeholder: "password" %>
+          </div>
+          <div class="input-group addon-left">
+            <span class="input-group-addon" href="#">
+              <i class="icon-key"></i>
+            </span>
+            <%= f.password_field :password_confirmation, placeholder: "confirm password" %>
+          </div>
+          <div>
+            <%= f.button class: "btn btn-blue btn-block" do %>
+              Sign Up <i class="icon-ok"></i>
+            <% end %>
+          </div>
+        <% end %>
+        <div>
+          <%= render "devise/shared/links" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

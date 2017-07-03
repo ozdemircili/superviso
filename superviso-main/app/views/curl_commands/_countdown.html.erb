@@ -1,0 +1,2 @@
+curl  -X POST -H "Content-Type: application/json" -d '{ "auth_token": "<%= current_user.auth_token %>",  "widget": "<%= @widget.secret_token%>", "title": "Something",  "end": "<%=Time.now.strftime("%B %d, %Y 15:00:00") %>" }' http://collector.superviso.com<br>
+

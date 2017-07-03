@@ -1,0 +1,33 @@
+<div class="col-md-6 col-md-offset-3">
+  <div class="padded">
+    <div class="login box" style="margin-top: 80px;">
+      <div class="box-header">
+        <span class="title">Login</span>
+      </div>
+      <div class="box-content padded">
+        <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), html: {class: "separate-sections"}) do |f| %>
+          <div class="input-group addon-left">
+            <span class="input-group-addon" href="#">
+              <i class="icon-user"></i>
+            </span>
+            <%= f.text_field :email, placeholder: "Email" %>
+          </div>
+          <div class="input-group addon-left">
+            <span class="input-group-addon" href="#">
+              <i class="icon-key"></i>
+            </span>
+            <%= f.password_field :password, placeholder: "Password" %>
+          </div>
+          <div>
+            <%= f.button class: "btn btn-blue btn-block" do %>
+              Login <i class="icon-signin"></i>
+            <% end %>
+          </div>
+        <% end %>
+        <div>
+          <%= render "devise/shared/links" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

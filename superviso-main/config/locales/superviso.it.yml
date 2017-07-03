@@ -1,0 +1,28 @@
+it:
+  common:
+    dashboard: "Dashboard"
+    widget: "Widget"
+  labels:
+    name: "Nome"
+    start_from_template: "Inzia da un template"
+  titles:
+    dashboards: "Dashboards"
+    your_dashboards: "Le tue Dashboards"
+    edit_dashboard: "Modifica %{name}"
+    add_widget: "Aggiungi %{type} Widget"
+    edit_widget: "Modifica %{type} Widget"
+    create_new_dashboard: "Crea una nuova dashboard"
+  placeholders: 
+    dashboard_name: "Nome della Dashboard"
+  buttons:
+    new_dashboard: "Nuova Dashboard"
+    create: "Crea"
+    update: "Aggiorna"
+    close: "Chiudi"
+    view: "Visualizza"
+    edit: "Modifica"
+    destroy: "Rimuovi"
+    add_widget: "Aggiungi Widget"
+    save_changes: "Salva le modifiche"
+  confirm: "Sei Sicuro?"
+

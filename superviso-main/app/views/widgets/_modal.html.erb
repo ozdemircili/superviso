@@ -1,0 +1,54 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <% if mode == :new %>
+        <% url = dashboard_widgets_path(@dashboard, type: @widget.type ) %>
+        <h4 class="modal-title"><%= t "titles.add_widget", type: @widget.dashing_type %></h4>
+      <% else %>
+        <h4 class="modal-title"><%= t "titles.edit_widget", type: @widget.dashing_type %></h4>
+        <% url = dashboard_widget_path(@dashboard, @widget ) %>
+      <% end %>
+    </div>
+    <%= form_for @widget, url: url, html:{class: "form-horizontal"}  do |f|%>
+      <%= f.hidden_field :type, value: @widget.type %>
+    <div class="modal-body">
+      
+          <div class="form-group">
+            <label for="" class="col-sm-3 control-label">Width</label>
+            <div class="col-sm-9">
+              <%= f.range_field :size_x, min:1, max: 4, class: "form-control" %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-3 control-label">Height</label>
+            <div class="col-sm-9">
+              <%= f.range_field :size_y, min: 1, max: 4, class: "form-control" %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-3 control-label">Color</label>
+            <div class="col-sm-9">
+              <%= f.color_field :color, class: "form-control" %>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-3 control-label">Default Title</label>
+            <div class="col-sm-9">
+              <%= f.text_field :title, class: "form-control" %>
+            </div>
+          </div>
+          <%= render partial: @widget.dashing_type.downcase, locals: {form: f} %>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal"><%= t "buttons.close"%></button>
+      <% if mode == :new %>
+        <%= f.submit t("buttons.create"), class: ['btn', 'btn-success']%>
+      <% else %>
+        <%= f.submit t("buttons.update"), class: ['btn', 'btn-success']%>
+      <% end %>
+
+    </div>
+    <% end %>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->

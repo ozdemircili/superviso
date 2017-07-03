@@ -1,0 +1,42 @@
+// ----------------------------------------------------------------------------
+// Sass declarations
+// ----------------------------------------------------------------------------
+$background-color:  #47bbb3;
+$value-color:       #fff;
+
+$title-color:       rgba(255, 255, 255, 0.7);
+$moreinfo-color:    rgba(255, 255, 255, 0.7);
+
+// ----------------------------------------------------------------------------
+// Widget-number styles
+// ----------------------------------------------------------------------------
+.widget-load-average {
+
+  background-color: $background-color;
+
+  .title {
+    color: $title-color;
+  }
+
+  .value {
+    color: $value-color;
+  }
+  .load-container{
+    width: 30%;
+    font-size: 50px;
+    font-weight: bolder;
+    display: inline-block;
+  }
+
+  .more-info {
+    color: $moreinfo-color;
+    position: relative;
+    bottom: 0px;
+  }
+
+  .updated-at {
+    color: rgba(0, 0, 0, 0.3);
+  }
+
+}
+

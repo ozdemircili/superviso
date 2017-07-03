@@ -1,0 +1,2 @@
+curl  -X POST -H "Content-Type: application/json" -d '{ "auth_token": "<%= current_user.auth_token %>",  "widget": "<%= @widget.secret_token%>", "title": "Something",  "series":[{"name":"Instruments","data":[8601,843,786,781,692,608,534,435,111,37]}],"categories":["BEATBOX", "PIANO", "VIOLA", "FLUTE", "CLAPPING", "BANJO", "UKULELE", "ABLETON", "DRUMS", "GUITAR"] }' http://collector.superviso.com<br>
+

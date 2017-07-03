@@ -1,0 +1,25 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h4 class="modal-title">End Point Instructions</h4>
+    </div>
+    <div class="modal-body">
+      <dl class="dl-horizontal">
+        <dt>End point</dt>
+        <dd>http://collector.superviso.com</dd>
+        <dt>Auth Token</dt>
+        <dd><%= current_user.auth_token %></dd>
+        <dt>Widget Secret</dt>
+        <dd><%= @widget.secret_token %></dd>
+      </dl>
+      <div class="well">
+        <strong>Curl example:</strong><br/>
+        <%= render partial: "curl_commands/#{@widget.dashing_type.downcase}"%>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->

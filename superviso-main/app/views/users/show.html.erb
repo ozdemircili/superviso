@@ -1,0 +1,56 @@
+<div class="container container-full">
+  <div class="row">
+    <div class="area-top clearfix">
+      <div class="pull-left header">
+        <h3 class="title">
+          <i class="icon-dashboard"></i>
+          User Profile
+        </h3>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <%= form_for current_user, url: user_path, html:{class: "form-horizontal"}, method: :put do |f| %>
+    <div class="form-group">
+    <%= f.label :first_name, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :first_name, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :last_name, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :last_name, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :locale, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.select :locale, options_for_select([["English", "en"], ["Italiano", "it"]], current_user.locale), {include_blank: true},class: 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit "Save Changes", class: "btn btn-success"%>
+    </div>
+  </div>
+<% end %>
+</div>
+
+<hr>
+
+<div class="row">
+  <div class="col-md-offset-1 col-md-10">
+    <div class="box">
+      <div class="box-header">
+        <span class="title">Auth token:</span>
+        <ul class="box-toolbar">
+        </ul>
+      </div>
+      <div class="box-content padded">
+        <center><h3> <%= current_user.auth_token %></h3></center>
+      </div>
+    </div>
+  </div>
+</div>

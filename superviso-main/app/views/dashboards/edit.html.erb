@@ -1,0 +1,102 @@
+<div class="container container-full">
+  <div class="row">
+    <div class="area-top clearfix">
+      <div class="pull-left header">
+        <h3 class="title">
+          <i class="icon-dashboard"></i>
+          <%= t "titles.edit_dashboard", name: @dashboard.name %>
+        </h3>
+      </div>
+      <div class="list-inline">
+      <div class="btn-group pull-right">
+        <%= link_to  t("buttons.view"), dashboard_path(@dashboard), class: ['btn', 'btn-success', 'btn-dashboard-view'] %>
+        <% if @dashboard.cloned_from %>
+          <button class="btn btn-info" id="copy-link-to-clipboard" 
+            data-clipboard-text="curl -s <%= script_dashboards_url(uid: @dashboard.uid, format: :sh) %> | bash"> Copy Command </button>
+        <% end %>
+        <button class="btn btn-primary" id="add-widget-button">
+            <%= t("buttons.add_widget") %>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="gridster">
+  <ul>
+    <% @dashboard.widgets.each do |widget| %>
+      <li class="dashing-widget" data-row="<%= widget.row %>" data-col="<%= widget.col %>" data-sizex="<%= widget.size_x%>" data-sizey="<%= widget.size_y %>" data-widgetid="<%=widget.id %>">
+      <%= content_tag :div, data: widget.dashing_data_hash, style: "background-color: #{widget.color}" do %><%end%>
+      <div class="btn-group pull-right btn-widget-settings">
+        <button class="btn dropdown-toggle" data-toggle="dropdown">
+          <span class="glyphicon glyphicon-cog"></span>
+        </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><%= link_to "Endpoint", dashboard_widget_path(@dashboard, widget), remote: true%></li>
+            <li><%= link_to t("buttons.edit"), edit_dashboard_widget_path(@dashboard, widget), remote: true%></li>
+            <% if widget.deletable %>
+              <li><%= link_to t("buttons.destroy"), dashboard_widget_path(@dashboard, widget), method: :delete, data:{confirm: t("confirm")}%></li>
+            <% end %>
+            <li></li>
+          </ul>
+      </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<div class="modal fade" id="add-widget-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Select a Widget</h4>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs nav-tabs-left">
+          <li class="active"><a href="#generic" data-toggle="tab"><i class="icon-comments-alt"></i> <span>Generic</span></a></li>
+          <li><a href="#charts" data-toggle="tab"><i class="icon-cog"></i> <span>Charts</span></a></li>
+        </ul>
+        <div class="box-content padded">
+          <div class="tab-content">
+            <div class="tab-pane active" id="generic">
+              <div id="thumbs">
+                <%= link_to "", new_dashboard_widget_path(@dashboard, type: "Widgets::Text"), remote: true, class: ['btn-add-widget'], title: "Text" %>
+                <%= link_to "", new_dashboard_widget_path(@dashboard, type: "Widgets::Number"), remote: true, class: ['btn-add-widget'], title: "Number" %>
+                <%= link_to "", new_dashboard_widget_path(@dashboard, type: "Widgets::Clock"), remote: true, class: ['btn-add-widget'], title: "Clock" %>
+                <%= link_to "", new_dashboard_widget_path(@dashboard, type: "Widgets::Countdown"), remote: true, class: ['btn-add-widget'], title: "Countdown" %>
+                <%= link_to "", new_dashboard_widget_path(@dashboard, type: "Widgets::Meter"), remote: true, class: ['btn-add-widget'], title: "Synergy" %>
+                <%= link_to "", new_dashboard_widget_path(@dashboard, type: "Widgets::LoadAverage"), remote: true, class: ['btn-add-widget'], title: "LoadAverage" %>
+              </div>
+            </div>
+            <div class="tab-pane" id="charts">
+              <div id="thumbs">
+                <%= link_to "", new_dashboard_widget_path(@dashboard, type: "Widgets::Horizonbarstack"), remote: true, class: ['btn-add-widget'], title: "Horizontal Bar Stack" %>
+                <%= link_to "", new_dashboard_widget_path(@dashboard, type: "Widgets::Pie"), remote: true, class: ['btn-add-widget'], title: "Pie" %>
+                <%= link_to "", new_dashboard_widget_path(@dashboard, type: "Widgets::Highbar"), remote: true, class: ['btn-add-widget'], title: "Highbar" %>
+                <%= link_to "", new_dashboard_widget_path(@dashboard, type: "Widgets::Stacker"), remote: true, class: ['btn-add-widget'], title: "Stacker" %>
+                <%= link_to "", new_dashboard_widget_path(@dashboard, type: "Widgets::Fadelist"), remote: true, class: ['btn-add-widget'], title: "Fade List" %>
+                <%= link_to "", new_dashboard_widget_path(@dashboard, type: "Widgets::UsageGauge"), remote: true, class: ['btn-add-widget'], title: "Usage Gauge" %>
+                <%= link_to "", new_dashboard_widget_path(@dashboard, type: "Widgets::ProgressBars"), remote: true, class: ['btn-add-widget'], title: "Progess Bar" %>
+                <%= link_to "", new_dashboard_widget_path(@dashboard, type: "Widgets::Spline"), remote: true, class: ['btn-add-widget'], title: "Spline" %>
+                <%= link_to "", new_dashboard_widget_path(@dashboard, type: "Widgets::Area"), remote: true, class: ['btn-add-widget'], title: "Area" %>
+                <%= link_to "", new_dashboard_widget_path(@dashboard, type: "Widgets::Gauge"), remote: true, class: ['btn-add-widget'], title: "Gauge" %>
+                <%= link_to "", new_dashboard_widget_path(@dashboard, type: "Widgets::Speedometer"), remote: true, class: ['btn-add-widget'], title: "Speedometer" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div id="new-widget-modal" class="modal fade">
+</div>
+<div id="endpoint-instruction-modal" class="modal fade">
+</div>
+
+<%= content_for :javascript do %>
+  <script>
+    currentDashboardUrl = "<%= dashboard_path(@dashboard) %>"
+    initDashing(<%= @dashboard.id %>, "<%= @dashboard.pusher_channel %>");
+  </script>
+<% end %> 

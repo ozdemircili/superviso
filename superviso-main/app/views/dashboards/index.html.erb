@@ -1,0 +1,44 @@
+
+<div class="container container-full">
+  <div class="row">
+    <div class="area-top clearfix">
+      <div class="pull-left header">
+        <h3 class="title">
+          <i class="icon-dashboard"></i>
+          <%= t "titles.your_dashboards" %>
+        </h3>
+      </div>
+      <div class="list-inline">
+      <%= link_to t("buttons.new_dashboards"), "#", 
+        class: ["btn", "btn-success", "btn-create-dashboard", "pull-right"],
+        data: {toggle: "modal", target: "#create-dashboard"}
+      %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-offset-1 col-md-10">
+    <div class="box dashboards">
+      <div class="box-header">
+        <span class="title"><%= t("titles.dashboards") %></span>
+        <ul class="box-toolbar">
+          <li><span class="label label-blue"><%= @dashboards.count %></span></li>
+        </ul>
+      </div>
+      <% @dashboards.each do |dashboard| %>
+        <div class="box-section news panel-dashboard">
+          <div class="news-content">
+            <div class="news-title"><%= dashboard.name %></div>
+          </div>
+          <div class="btn-group news-time">
+            <%= link_to t("buttons.view"), dashboard_path(dashboard), class: ['btn', 'btn-success', 'btn-dashboard-view'] %>
+            <%= link_to t("buttons.edit"), edit_dashboard_path(dashboard), class: ['btn', 'btn-warning', 'btn-dashboard-edit'] %>
+            <%= link_to t("buttons.destroy"), dashboard_path(dashboard), class: ['btn', 'btn-danger', 'btn-dashboard-destroy'], method: :delete, data: {confirm: t("confirm")} %>
+          </div>
+      </div>
+    <% end %>
+    </div>
+  </div>
+</div>
+<%= render 'create_modal' %>
