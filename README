@@ -1,0 +1,14 @@
+Open Sourcing Superviso.
+
+I am open sourcing all the code that we have used in my first startup. It is time to give back to the open source community.
+
+Feel free to shoot me an email to ask anything or just fork and use it for your business.
+
+With everyday passing we are bound to user more application, see more statistics, compare more and more metrics. Superviso is a dashboard and monitorization system that is developed to solve the problem of having various data on different applications and different view. 
+
+We can make sense of data in comparison and the best way to compare passes in seeing the big picture in the same format and in the same environment. So Superviso comes into play where the managers, workers need to see various metrics that are valuable to them.
+
+The usage stories typically are:
+- Getting different types of data (database sql queries, load metrics from servers, financial sales status, earnings, or any other data necessary) and displaying them using the 14 different types of widget styles and distributing them on different dashboards.
+- Creating different dashboards for different departments in your workplace and displaying them on large screens (Financial data for accounting department, jenkins and continious delivery status and svn stats for IT developers, or network statistics for network department)
+-Creating meaningfull dashboards for managers and leaders which gives them the "overall" view of what is going on in their department / company.
